@@ -1,28 +1,44 @@
 package week_1;
 
 import java.util.*;
+import java.util.concurrent.ConcurrentLinkedQueue;
 import java.util.concurrent.atomic.AtomicReference;
 import java.util.stream.Collectors;
 
 public class StackSolution1_psw {
 
-    public String solution(String[] participant, String[] completion) {
+    public int[] solution(int[] progresses, int[] speeds) {
 
-        HashMap<String, Integer> par = new HashMap<>();
-        for (String p : participant) {
-            par.put(p, par.getOrDefault(p, 0) + 1);
+        int[] ans = null;
+        ArrayList<Integer> answer = new ArrayList<>();
+        int size = progresses.length;
+        Queue<Integer> workingDays = new ConcurrentLinkedQueue<>();
+        Integer stdDay = 0;
+        int deploys = 1;
+
+        for (int i = 0; i < size; i++) {
+            workingDays.add((int) Math.ceil(100 - progresses[i] / (float) speeds[i]));
         }
-        for (String c : completion) {
-            par.put(c, par.get(c) - 1);
-            if (par.get(c) == 0) {
-                par.remove(c);
+
+        stdDay = workingDays.poll();
+        while (!workingDays.isEmpty()) {
+            Integer compDay = workingDays.poll();
+            if (stdDay >= compDay) {
+                deploys++;
+            }else {
+                answer.add(deploys);
+                stdDay = compDay;
+                deploys = 1;
             }
         }
-        AtomicReference<String> result = new AtomicReference<>();
-        par.forEach((key, value) -> {
-            result.set(key);
-        });
-        return result.get();
+        answer.add(deploys);
+
+        ans = new int[answer.size()];
+        for (int i = 0; i < answer.size(); i++) {
+            ans[i] = answer.get(i);
+        }
+
+        return  ans;
     }
 
     public static void main(String[] args) {

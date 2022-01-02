@@ -9,17 +9,21 @@ public class HashSolution1_psw {
 
     public String solution(String[] participant, String[] completion) {
         String answer = "";
+
         List<String> participants = Arrays.stream(participant).sorted().collect(Collectors.toList());
         List<String> completions = Arrays.stream(completion).sorted().collect(Collectors.toList());
+
         int size = participants.size();
         answer = participants.get(size - 1);
-        for (int i = 0; i < size - 1; i++) {
+
+        for (int i = 0; i < size; i++) {
             String ptpt = participants.get(i);
             if (!ptpt.equals(completions.get(i))) {
                 answer = ptpt;
                 break;
             }
         }
+
         return answer;
     }
 
