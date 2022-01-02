@@ -2,16 +2,10 @@ package week_1;
 
 import java.util.ArrayList;
 
-/**
- *
- * 프로그래머스 : 기능개발
- * @author spjang
- * @since 22.01.01 Sat 23:30
- */
-
 public class StackSolution1 {
 
     /**
+     * 프로그래머스 : 기능 개발
      *
      * @param progresses : int[] 진행률
      * @param speeds : int[] 진행속도
@@ -25,40 +19,29 @@ public class StackSolution1 {
     public int[] solution(int[] progresses, int[] speeds) {
         int[] answer = {};
 
-        int[] days = new int[progresses.length];
-
-
-        /* 어떤게 더 효율적인지?
-        int index = 0;
-        for (int day : days) {
-            days[index] = (int) Math.ceil( (100F - progresses[index]) / speeds[index]);
-            index++;
-        }
-        */
+        int[] days = new int[progresses.length];    // 작업날짜.
 
         for (int i = 0; i < progresses.length; i++) {
-            days[i] = (int) Math.ceil( (100F - progresses[i]) / speeds[i]);
+            days[i] = (int)Math.ceil( (100F - progresses[i])/speeds[i] );
         }
 
         ArrayList<Integer> list = new ArrayList<>();
 
-        int count = 1;  // 배포되는 기능의 수
-        int target = days[0];  // 배포되는 기능
-
+        int count = 1;
+        int target = days[0];
 
         for (int i = 1; i < days.length; i++) {
 
-
-            if (target < days[i]) { // 앞에 기능의 진도가 빠를 때
+            if (target < days[i]) {
                 target = days[i];
                 list.add(count);
                 count = 1;
-            } else {                // 뒤에 기능의 진도가 더 빠를 때
+            } else {
                 count++;
             }
         }
+         list.add(count);
 
-        list.add(count);
 
         return list.stream().mapToInt(Integer::intValue).toArray();
     }

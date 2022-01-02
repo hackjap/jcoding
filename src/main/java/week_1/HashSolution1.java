@@ -2,16 +2,13 @@ package week_1;
 
 import java.util.HashMap;
 
-/**
- * 프로그래머스 : 완주하지 못한 선수
- * @author spjang
- * @since 22.01.01 Sat 23:10
- */
-
 public class HashSolution1 {
     public String solution(String[] participant, String[] completion){
 
         /**
+         *
+         * 프로그래머스 : 완주하지 못한 선수
+         *
          * @param participant : String[] 참여한 선수
          * @param completion : String[] 완주한 선수
          *
